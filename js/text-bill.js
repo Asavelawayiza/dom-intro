@@ -11,45 +11,45 @@
 // * add nothing for invalid values that is not 'call' or 'sms'.
 // * display the latest total on the screen
 
-var billTypeText = document.querySelector(".billType");
+var billTypeText = document.querySelector(".billTypeText");
 var addToBillBtn = document.querySelector(".addToBillBtn");
-var callTotalOne = document.querySelector(".callTotalOne");
-var smsTotalOne = document.querySelector(".smsTotalOne");
-var totalOne = document.querySelector(".totalOne");
+var callsTotalElem = document.querySelector(".callTotalOne");
+var smsTotalElem = document.querySelector(".smsTotalOne");
+var totalCostElem = document.querySelector(".totalOne");
 
-function textBillTotal(){
-    var billTypeText = billTypeText.value;
-    var billItems = billType.split(",");
+var callsTotal = 0;
+var smsTotal = 0;
+var totalCost = 0;
 
-    
-    var callsTotal = 0;
-    var smsTotal = 0;
 
-    for (var i=0;i<billItems.length;i++){
-        var billTypeEntered = billTypeText.value.trim();
-        // update the correct total
-        if (billTypeEntered === "bill"){
-            callsTotal += 2.75
-        }
-        else if (billTypeEntered === "sms"){
-            smsTotal += 0.75;
-        }
+function textBillTotal() {
 
-    if (totalCost >= 30){
-            totalCostElem.classList.add("warning");
-            totalCostElem.classList.remove("danger");
-        }    
+    var billTypeEnteredValue = billTypeText.value;
+    // update the correct total
+    if (billTypeEnteredValue === "call") {
+        callsTotal += 2.75
     }
-    if (totalCost >= 50){
-        // adding the danger class will make the text red
-        totalCostElem.classList.remove("warning");
-        totalCostElem.classList.add("danger");
+    else if (billTypeEnteredValue === "sms") {
+        smsTotal += 0.75;
     }
-    
+
     callsTotalElem.innerHTML = callsTotal.toFixed(2);
     smsTotalElem.innerHTML = smsTotal.toFixed(2);
     var totalCost = callsTotal + smsTotal;
     totalCostElem.innerHTML = totalCost.toFixed(2);
+
+
+    if (totalCost >= 30) {
+        totalCostElem.classList.add("warning");
+        totalCostElem.classList.remove("danger");
+    }
+
+    if (totalCost >= 50) {
+        // adding the danger class will make the text red
+        totalCostElem.classList.remove("warning");
+        totalCostElem.classList.add("danger");
+    }
+
 }
 
-addToBillBtn.addEventListener('click', addToBillBtn);
+addToBillBtn.addEventListener('click', textBillTotal);
