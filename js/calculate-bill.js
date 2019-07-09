@@ -48,3 +48,5 @@ function calculateBtnClicked(){
     billTotalElement.innerHTML = billTotal.toFixed(2);
 }
 calculateBtn.addEventListener('click', calculateBtnClicked);
+
+
